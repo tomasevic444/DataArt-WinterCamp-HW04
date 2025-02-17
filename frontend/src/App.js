@@ -7,13 +7,11 @@ import Footer from "./components/Footer";
 const App = () => {
   return (
     <Router>
-      <Header />
       <main className="container mx-auto p-6">
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
       </main>
-      <Footer />
     </Router>
   );
 };
