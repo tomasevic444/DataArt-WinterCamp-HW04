@@ -1,18 +1,20 @@
 import Joke from "../models/Joke.js";
 
-// Get a random joke
+// Fetch a random joke
 export const getRandomJoke = async (req, res) => {
-  try {
-    const count = await Joke.countDocuments();
-    const random = Math.floor(Math.random() * count);
-    const joke = await Joke.findOne().skip(random);
-    res.json(joke);
-  } catch (error) {
-    res.status(500).json({ message: "Server Error" });
-  }
-};
+    try {
+      const count = await Joke.countDocuments();
+      const random = Math.floor(Math.random() * count);
+      const joke = await Joke.findOne().skip(random);
+      if (!joke) return res.status(404).json({ message: "No jokes found" });
+      res.json(joke);
+    } catch (error) {
+      console.error("Error fetching joke:", error);
+      res.status(500).json({ message: "Server Error" });
+    }
+  };
 
-// Vote on a joke
+// Vote for a joke
 export const voteJoke = async (req, res) => {
   const { emoji } = req.body;
 
@@ -27,6 +29,6 @@ export const voteJoke = async (req, res) => {
     await joke.save();
     res.json(joke);
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Server Error", error });
   }
 };
