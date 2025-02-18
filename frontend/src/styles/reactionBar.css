@@ -53,6 +53,9 @@
   .button:hover {
     background-color: rgba(255, 196, 0, 0.5);
   }
+  .selected {
+    background-color: rgba(255, 196, 0, 0.5);
+  }
   
   .button:active {
     transition: all 0.025s linear;

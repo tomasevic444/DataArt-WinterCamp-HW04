@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactionButton from "./ReactionButton";
 import "../styles/reactionBar.css";
 
-const ReactionBar = ({ votes }) => {
-  // Convert votes array to an object { emoji: count }
-  const reactions = votes.reduce((acc, { label, value }) => {
-    acc[label] = value;
-    return acc;
-  }, {});
-
+const ReactionBar = ({ jokeId, votes, updateJoke, selectedEmoji, setSelectedEmoji }) => {
   return (
     <div className="container">
       <div id="content" className="content">
-      {Object.entries(reactions).map(([emoji, count]) => (
-          <ReactionButton key={emoji} emoji={emoji} count={count} />
+        {votes.map(({ label, value }) => (
+          <ReactionButton
+            key={label}
+            jokeId={jokeId}
+            emoji={label}
+            count={value}
+            updateJoke={updateJoke}
+            selectedEmoji={selectedEmoji}
+            setSelectedEmoji={setSelectedEmoji}
+          />
         ))}
       </div>
     </div>
