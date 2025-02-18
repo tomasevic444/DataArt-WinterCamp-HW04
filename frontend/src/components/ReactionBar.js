@@ -2,27 +2,18 @@ import React, { useState } from "react";
 import ReactionButton from "./ReactionButton";
 import "../styles/reactionBar.css";
 
-const emojiList = {
-  faceWithTears: { icon: "😂", count: 0 },
-  heart: { icon: "❤️", count: 0 },
-  tumbsUp: { icon: "👍", count: 0 },
-};
-
-const ReactionBar = () => {
-  const [reactions, setReactions] = useState(emojiList);
-
-  const handleReaction = (id) => {
-    setReactions((prev) => ({
-      ...prev,
-      [id]: { ...prev[id], count: prev[id].count + 1 },
-    }));
-  };
+const ReactionBar = ({ votes }) => {
+  // Convert votes array to an object { emoji: count }
+  const reactions = votes.reduce((acc, { label, value }) => {
+    acc[label] = value;
+    return acc;
+  }, {});
 
   return (
     <div className="container">
       <div id="content" className="content">
-        {Object.entries(reactions).map(([key, { icon, count }]) => (
-          <ReactionButton key={key} id={key} emoji={icon} count={count} onClick={handleReaction} />
+      {Object.entries(reactions).map(([emoji, count]) => (
+          <ReactionButton key={emoji} emoji={emoji} count={count} />
         ))}
       </div>
     </div>

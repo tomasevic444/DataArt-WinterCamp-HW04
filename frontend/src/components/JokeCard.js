@@ -12,17 +12,12 @@ const icons = [BaitIcon, CatIcon, DogIcon, TreeIcon, UnicornIcon];
 
 const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor,cardWidth }) => {
   const [RandomIcon, setRandomIcon] = useState(null);
-  const [selectedReaction, setSelectedReaction] = useState(null);
+
   useEffect(() => {
     setRandomIcon(icons[Math.floor(Math.random() * icons.length)]);
   }, [joke]); // Change SVG when joke changes
 
-  const handleReaction = (reaction) => {
-    setSelectedReaction(reaction);
-    console.log("User reacted with:", reaction);
-  };
-
-  return (
+return (
     <div className="card" style={{ height: `${Math.max(cardHeight, 300)}px`, width: `${cardWidth}px`,  transition: "0.5s ease" }}>
       <div style={{ flexGrow: 1 }}>
         {RandomIcon && (
@@ -39,7 +34,7 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor,cardWidth }) => {
         <p className="description">{joke.answer}</p>
       </div>
   
-      <ReactionBar onReact={handleReaction} />
+      <ReactionBar votes={joke.votes} />
       <div className="footer">
         <a onClick={fetchJoke} style={{ color: bgColor }}>Prev</a>
         <a onClick={fetchJoke} style={{ color: bgColor }}>Next</a>
