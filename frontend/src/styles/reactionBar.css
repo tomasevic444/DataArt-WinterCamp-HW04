@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .buttonCounter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .button {
+    padding: 0.5rem 0.75rem;
+    border: 2px rgb(255, 196, 0) solid;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 196, 0, 0);
+    transition: all 0.25s linear;
+    font-size: 2rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .button:hover {
+    background-color: rgba(255, 196, 0, 0.5);
+  }
+  
+  .button:active {
+    transition: all 0.025s linear;
+    background-color: rgba(255, 196, 0, 1);
+  }
+  
+  /* Floating Emoji Animation */
+  .emoji {
+    position: absolute;
+    font-size: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    opacity: 1;
+    animation: floatUp 2s ease-out forwards;
+  }
+  
+  /* Animation to move the emoji up */
+  @keyframes floatUp {
+    0% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-100px);
+    }
+  }
+  
