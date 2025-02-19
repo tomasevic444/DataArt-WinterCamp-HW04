@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import JokeCard from "../components/JokeCard";
 import { getJoke } from "../api/fetchJokes";
 import AdminButton from "../components/AdminButton"; 
+import ToastNotification from "../components/ToastNotifications"; // Ensure this path is correct
 import "../styles/global.css";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
   const [cardHeight, setCardHeight] = useState(450);
   const [cardWidth, setCardWidth] = useState(350);
   const [adminMode, setAdminMode] = useState(false); // Track Admin Mode
+  const [toast, setToast] = useState({ show: false, type: "", message: "" });
 
   const toggleAdminMode = () => {
     setAdminMode((prev) => !prev);
@@ -43,6 +45,10 @@ const Home = () => {
     };
   }, [bgColor]);
 
+  const showToast = (type, message) => {
+    setToast({ show: true, type, message });
+  };
+
   return (
     <div className="home-container">
       {/* Replacing Admin Button with Encrypt Button */}
@@ -56,10 +62,12 @@ const Home = () => {
           bgColor={bgColor} 
           cardWidth={cardWidth}
           adminMode={adminMode} // Pass Admin Mode state
+          showToast={showToast} // Pass showToast function as a prop
         />
       ) : (
         <p>Loading joke...</p>
       )}
+      {toast.show && <ToastNotification type={toast.type} message={toast.message} onClose={() => setToast({ show: false })} />}
     </div>
   );
 };

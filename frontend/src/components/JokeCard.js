@@ -9,7 +9,7 @@ import { ReactComponent as UnicornIcon } from "../assets/unicorn.svg";
 
 const icons = [BaitIcon, CatIcon, DogIcon, TreeIcon, UnicornIcon];
 
-const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode }) => {
+const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, showToast }) => {
   const [currentJoke, setCurrentJoke] = useState(joke);
   const [RandomIcon, setRandomIcon] = useState(null);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
@@ -33,26 +33,29 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode }
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: editedQuestion, answer: editedAnswer }),
       });
-
+  
       if (!response.ok) throw new Error("Failed to update joke");
-
+  
       const updatedJoke = await response.json();
       setCurrentJoke(updatedJoke);
+      showToast("success", "Joke updated successfully!");
     } catch (error) {
       console.error("Error updating joke:", error);
+      showToast("error", "Failed to update joke!");
     }
   };
-
-  // Handle Joke Deletion
+  
   const deleteJoke = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/joke/${joke._id}`, { method: "DELETE" });
-
+  
       if (!response.ok) throw new Error("Failed to delete joke");
-
-      fetchJoke(); // Fetch a new joke after deletion
+  
+      fetchJoke();
+      showToast("error", "Joke deleted successfully!");
     } catch (error) {
       console.error("Error deleting joke:", error);
+      showToast("error", "Failed to delete joke!");
     }
   };
 
