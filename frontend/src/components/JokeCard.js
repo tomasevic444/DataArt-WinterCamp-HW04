@@ -13,7 +13,7 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode }
   const [currentJoke, setCurrentJoke] = useState(joke);
   const [RandomIcon, setRandomIcon] = useState(null);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
-  const [editMode, setEditMode] = useState(false);
+
   const [editedQuestion, setEditedQuestion] = useState(joke.question);
   const [editedAnswer, setEditedAnswer] = useState(joke.answer);
 
@@ -38,7 +38,6 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode }
 
       const updatedJoke = await response.json();
       setCurrentJoke(updatedJoke);
-      setEditMode(false);
     } catch (error) {
       console.error("Error updating joke:", error);
     }
@@ -66,7 +65,7 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode }
         transition: "0.5s ease",
       }}
     >
-      <div style={{ flexGrow: 1 }}>
+      <div style={{ flexGrow: 1}}>
         {RandomIcon && (
           <RandomIcon
             style={{
@@ -74,29 +73,32 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode }
               height: cardHeight * 0.3 + "px",
               fill: bgColor,
               transition: "0.5s ease",
+              display: "block",         
+              margin: "0 auto 20", 
+              padding: "",
             }}
           />
         )}
-        {editMode ? (
-          <>
-            <input
-              type="text"
-              value={editedQuestion}
-              onChange={(e) => setEditedQuestion(e.target.value)}
-              className="edit-input"
-            />
-            <textarea
-              value={editedAnswer}
-              onChange={(e) => setEditedAnswer(e.target.value)}
-              className="edit-input"
-            />
-          </>
-        ) : (
+        {adminMode ? (
+      <>
+    <textarea
+      value={editedQuestion}
+      onChange={(e) => setEditedQuestion(e.target.value)}
+      className="edit-title"
+      style={{ color: bgColor }}
+    />
+    <textarea
+      value={editedAnswer}
+      onChange={(e) => setEditedAnswer(e.target.value)}
+      className="edit-textarea"
+    />
+  </>
+) : (
           <>
             <h1 className="title" style={{ color: bgColor }}>
               {currentJoke.question}
             </h1>
-            <p className="description">{currentJoke.answer}</p>
+            <p className="description" >{currentJoke.answer}</p>
           </>
         )}
       </div>
@@ -108,26 +110,14 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode }
         selectedEmoji={selectedEmoji}
         setSelectedEmoji={setSelectedEmoji}
       />
-
-      {/* Show Admin Buttons if Admin Mode is enabled */}
-      {adminMode && (
-        <div className="admin-controls">
-          {editMode ? (
-            <button onClick={updateJoke} className="save-button">Save</button>
-          ) : (
-            <button onClick={() => setEditMode(true)} className="edit-button">Edit</button>
-          )}
-          <button onClick={deleteJoke} className="delete-button">Delete</button>
-        </div>
-      )}
-
+       
       <div className="footer">
-        <a onClick={fetchJoke} style={{ color: bgColor }}>
-          Prev
-        </a>
-        <a onClick={fetchJoke} style={{ color: bgColor }}>
+
+      {adminMode && <a onClick={deleteJoke}  className="btn btn-danger" style={{ color: "red" }}>Delete</a> }
+        <a onClick={fetchJoke}  className="center"  style={{ color: bgColor }}>
           Next
         </a>
+        {adminMode && <a onClick={updateJoke} className="btn btn-warning" style={{ color: bgColor }}>Update</a> }
       </div>
     </div>
   );

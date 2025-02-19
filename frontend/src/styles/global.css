@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
     background: #D18B49;
     color: rgba(0, 0, 0, 0.6);
@@ -23,29 +27,63 @@ body {
     transition: height 0.5s ease;
   }
   
-  .card h1,
-  .card p {
-    flex-grow: 1;
-  }
+.card h1,
+.card p,
+.edit-title,
+.edit-textarea {
+  flex-grow: 1; /* Ensure elements grow to fill space */
+  margin: 0 0 12px; /* Consistent margin for all elements */
+}
   
 
-  .footer {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 12px;
-    margin-top: auto; /* Pushes it to the bottom */
-  }
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  margin-top: auto;
+  width: 100%;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.center {
+  flex-grow: 1;
+  text-align: center;
+}
 
   .title {
-    margin: 0 0 12px;
-    color: #D18B49;
-    font-size: 24px;
-    -webkit-transition: 0.5s ease;
-    transition: 0.5s ease;
+      margin: 0 0 12px;
+  font-size: 24px;
+  color: #D18B49;
+
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-weight: bold;
+  font-family: inherit; /* Ensures same font */
+  transition: 0.5s ease;
+   -webkit-transition: 0.5s ease;
+  resize: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  line-height: 1.2; /* Match h1 line height */
+  padding: 0;
   }
   
   .description {
-    margin: 0 0 48px;
+      font-size: 16px; 
+  color: inherit;
+  text-align: center;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  padding: 0;
   }
 
   .admin-button {
@@ -69,8 +107,42 @@ body {
     cursor: pointer;
     font-size: 14px;
   }
+
+.edit-title {
+  margin: 0 0 12px;
+  font-size: 24px;
+  color: #D18B49;
+  text-align: center;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-weight: bold;
+  font-family: inherit;
+  transition: 0.5s ease;
+  resize: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  line-height: 1.2;
+  height: auto; /* Allow height to adjust */
+  min-height: 40px; /* Match the height of <h1> */
+   padding: 0; 
+}
+
+.edit-textarea {
+  font-size: 16px;
+  color: inherit;
+  text-align: center;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  font-family: inherit;
+  line-height: 1.6em;
+  height: auto; /* Allow height to adjust */
+  min-height: 60px; /* Match the height of <p> */
+  margin: 0 0 48px; /* Match the margin of <p> */
+   padding: 0; 
   
-  .edit-button { background-color: blue; color: white; }
-  .save-button { background-color: green; color: white; }
-  .delete-button { background-color: red; color: white; }
-  
+}
