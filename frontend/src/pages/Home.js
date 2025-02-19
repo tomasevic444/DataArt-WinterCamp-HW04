@@ -5,6 +5,7 @@ import AdminButton from "../components/AdminButton";
 import ToastNotification from "../components/ToastNotifications"; // Ensure this path is correct
 import "../styles/global.css";
 
+
 const Home = () => {
   const [joke, setJoke] = useState(null);
   const [bgColor, setBgColor] = useState("#D18B49");
@@ -51,9 +52,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Replacing Admin Button with Encrypt Button */}
       <AdminButton adminMode={adminMode} toggleAdminMode={toggleAdminMode} />
-
       {joke ? (
         <JokeCard 
           joke={joke} 
@@ -61,14 +60,15 @@ const Home = () => {
           cardHeight={cardHeight} 
           bgColor={bgColor} 
           cardWidth={cardWidth}
-          adminMode={adminMode} // Pass Admin Mode state
-          showToast={showToast} // Pass showToast function as a prop
+          adminMode={adminMode} 
+          showToast={showToast} 
         />
       ) : (
         <p>Loading joke...</p>
       )}
       {toast.show && <ToastNotification type={toast.type} message={toast.message} onClose={() => setToast({ show: false })} />}
     </div>
+    
   );
 };
 

@@ -12,7 +12,7 @@ const icons = [BaitIcon, CatIcon, DogIcon, TreeIcon, UnicornIcon];
 const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, showToast }) => {
   const [currentJoke, setCurrentJoke] = useState(joke);
   const [RandomIcon, setRandomIcon] = useState(null);
-  const [selectedEmoji, setSelectedEmoji] = useState(null);
+  const [selectedEmoji, setSelectedEmoji] = useState(null); // Track selected emoji
 
   const [editedQuestion, setEditedQuestion] = useState(joke.question);
   const [editedAnswer, setEditedAnswer] = useState(joke.answer);
@@ -20,7 +20,7 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
   useEffect(() => {
     setCurrentJoke(joke);
     setRandomIcon(icons[Math.floor(Math.random() * icons.length)]);
-    setSelectedEmoji(null);
+    setSelectedEmoji(null); // Reset selected emoji when a new joke is loaded
     setEditedQuestion(joke.question);
     setEditedAnswer(joke.answer);
   }, [joke]);
@@ -33,9 +33,9 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: editedQuestion, answer: editedAnswer }),
       });
-  
+
       if (!response.ok) throw new Error("Failed to update joke");
-  
+
       const updatedJoke = await response.json();
       setCurrentJoke(updatedJoke);
       showToast("success", "Joke updated successfully!");
@@ -44,13 +44,13 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
       showToast("error", "Failed to update joke!");
     }
   };
-  
+
   const deleteJoke = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/joke/${joke._id}`, { method: "DELETE" });
-  
+
       if (!response.ok) throw new Error("Failed to delete joke");
-  
+
       fetchJoke();
       showToast("error", "Joke deleted successfully!");
     } catch (error) {
@@ -68,7 +68,7 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
         transition: "0.5s ease",
       }}
     >
-      <div style={{ flexGrow: 1}}>
+      <div style={{ flexGrow: 1 }}>
         {RandomIcon && (
           <RandomIcon
             style={{
@@ -76,32 +76,32 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
               height: cardHeight * 0.3 + "px",
               fill: bgColor,
               transition: "0.5s ease",
-              display: "block",         
-              margin: "0 auto 20", 
+              display: "block",
+              margin: "0 auto 20",
               padding: "",
             }}
           />
         )}
         {adminMode ? (
-      <>
-    <textarea
-      value={editedQuestion}
-      onChange={(e) => setEditedQuestion(e.target.value)}
-      className="edit-title"
-      style={{ color: bgColor }}
-    />
-    <textarea
-      value={editedAnswer}
-      onChange={(e) => setEditedAnswer(e.target.value)}
-      className="edit-textarea"
-    />
-  </>
-) : (
+          <>
+            <textarea
+              value={editedQuestion}
+              onChange={(e) => setEditedQuestion(e.target.value)}
+              className="edit-title"
+              style={{ color: bgColor }}
+            />
+            <textarea
+              value={editedAnswer}
+              onChange={(e) => setEditedAnswer(e.target.value)}
+              className="edit-textarea"
+            />
+          </>
+        ) : (
           <>
             <h1 className="title" style={{ color: bgColor }}>
               {currentJoke.question}
             </h1>
-            <p className="description" >{currentJoke.answer}</p>
+            <p className="description">{currentJoke.answer}</p>
           </>
         )}
       </div>
@@ -113,14 +113,21 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
         selectedEmoji={selectedEmoji}
         setSelectedEmoji={setSelectedEmoji}
       />
-       
-      <div className="footer">
 
-      {adminMode && <a onClick={deleteJoke}  className="btn btn-danger" style={{ color: "red" }}>Delete</a> }
-        <a onClick={fetchJoke}  className="center"  style={{ color: bgColor }}>
+      <div className="footer">
+        {adminMode && (
+          <a onClick={deleteJoke} className="btn btn-danger" style={{ color: "red" }}>
+            Delete
+          </a>
+        )}
+        <a onClick={fetchJoke} className="center" style={{ color: bgColor }}>
           Next
         </a>
-        {adminMode && <a onClick={updateJoke} className="btn btn-warning" style={{ color: bgColor }}>Update</a> }
+        {adminMode && (
+          <a onClick={updateJoke} className="btn btn-warning" style={{ color: bgColor }}>
+            Update
+          </a>
+        )}
       </div>
     </div>
   );
