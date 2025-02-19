@@ -48,4 +48,29 @@ body {
     margin: 0 0 48px;
   }
 
-
+  .admin-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .admin-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .edit-button, .delete-button, .save-button {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .edit-button { background-color: blue; color: white; }
+  .save-button { background-color: green; color: white; }
+  .delete-button { background-color: red; color: white; }
+  

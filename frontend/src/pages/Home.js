@@ -8,14 +8,15 @@ const Home = () => {
   const [bgColor, setBgColor] = useState("#D18B49");
   const [cardHeight, setCardHeight] = useState(450);
   const [cardWidth, setCardWidth] = useState(350);
+  const [adminMode, setAdminMode] = useState(false); // Track Admin Mode
 
   const generateRandomStyles = () => {
     return {
       bgColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
         Math.random() * 256
       )}, ${Math.floor(Math.random() * 256)})`,
-      cardHeight: Math.floor(Math.random() * 150) + 450,
-      cardWidth: Math.floor(Math.random() * 100) + 400,
+      cardHeight: Math.floor(Math.random() * 150) + 500,
+      cardWidth: Math.floor(Math.random() * 150) + 400,
     };
   };
 
@@ -33,17 +34,34 @@ const Home = () => {
   useEffect(() => {
     fetchJoke();
   }, []);
+
   useEffect(() => {
     document.body.style.backgroundColor = bgColor;
     return () => {
-      document.body.style.backgroundColor = ""; 
+      document.body.style.backgroundColor = "";
     };
   }, [bgColor]);
 
   return (
     <div className="home-container">
+      {/* Admin Mode Toggle Button */}
+      <button 
+        className="admin-button" 
+        onClick={() => setAdminMode(!adminMode)} 
+        style={{ position: "fixed", top: "1rem", left: "1rem", zIndex: 100 }}
+      >
+        {adminMode ? "Exit Admin Mode" : "Admin Mode"}
+      </button>
+
       {joke ? (
-        <JokeCard joke={joke} fetchJoke={fetchJoke} cardHeight={cardHeight} bgColor={bgColor} cardWidth={cardWidth} />
+        <JokeCard 
+          joke={joke} 
+          fetchJoke={fetchJoke} 
+          cardHeight={cardHeight} 
+          bgColor={bgColor} 
+          cardWidth={cardWidth}
+          adminMode={adminMode} // Pass Admin Mode state
+        />
       ) : (
         <p>Loading joke...</p>
       )}

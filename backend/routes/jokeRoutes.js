@@ -1,13 +1,11 @@
 import express from "express";
-import { getRandomJoke, voteJoke } from "../controllers/jokeController.js";
+import { getRandomJoke, voteJoke, deleteJoke, updateJoke } from "../controllers/jokeController.js";
 
 const router = express.Router();
 
-// Fetch a random joke
 router.get("/joke", getRandomJoke);
-
-// Vote for a joke
 router.post("/joke/:id", voteJoke);
-
+router.delete("/joke/:id", deleteJoke);  
+router.put("/joke/:id", updateJoke);  
 
 export default router;

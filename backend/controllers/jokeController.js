@@ -52,3 +52,32 @@ export const voteJoke = async (req, res) => {
     res.status(500).json({ message: "Server Error", error });
   }
 };
+
+// Delete a joke
+export const deleteJoke = async (req, res) => {
+  try {
+    const joke = await Joke.findByIdAndDelete(req.params.id);
+    if (!joke) return res.status(404).json({ message: "Joke not found" });
+    res.json({ message: "Joke deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting joke:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// Update a joke
+export const updateJoke = async (req, res) => {
+  try {
+    const { question, answer } = req.body;
+    const joke = await Joke.findByIdAndUpdate(
+      req.params.id,
+      { question, answer },
+      { new: true, runValidators: true }
+    );
+    if (!joke) return res.status(404).json({ message: "Joke not found" });
+    res.json(joke);
+  } catch (error) {
+    console.error("Error updating joke:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
