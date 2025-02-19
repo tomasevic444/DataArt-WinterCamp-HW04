@@ -5,7 +5,7 @@ const ReactionButton = ({ jokeId, emoji, count, updateJoke, selectedEmoji, setSe
   const [emojis, setEmojis] = useState([]);
   const [localCount, setLocalCount] = useState(count);
   const [isSelected, setIsSelected] = useState(false); // Track if the button is selected
-
+  // Effect to check if the user has already voted for this emoji
   useEffect(() => {
     const storedValue = localStorage.getItem(`voted_${jokeId}`);
     let votedEmojis = [];
@@ -23,7 +23,7 @@ const ReactionButton = ({ jokeId, emoji, count, updateJoke, selectedEmoji, setSe
   
     setIsSelected(votedEmojis.includes(emoji));
   }, [jokeId, emoji]);
-  
+   // Function to handle emoji click (vote)
   const handleClick = async () => {
     if (isSelected) return;
   
@@ -37,6 +37,7 @@ const ReactionButton = ({ jokeId, emoji, count, updateJoke, selectedEmoji, setSe
     }, 2000);
   
     try {
+      // Send vote to the server
       const res = await fetch(`http://localhost:5000/api/joke/${jokeId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

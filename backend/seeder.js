@@ -54,12 +54,6 @@ const seedJokes = async () => {
         availableVotes: ["😂", "👍", "❤️"]
       },
       {
-        question: "Why did the frontend developer break up with the backend developer?",
-        answer: "Because they had too many conflicts in their merge!",
-        votes: [{ value: 27, label: "😂" }, { value: 39, label: "👍" }, { value: 25, label: "❤️" }],
-        availableVotes: ["😂", "👍", "❤️"]
-      },
-      {
         question: "Why was the CSS developer so calm?",
         answer: "Because he always stayed in class!",
         votes: [{ value: 43, label: "😂" }, { value: 12, label: "👍" }, { value: 29, label: "❤️" }],
@@ -108,12 +102,6 @@ const seedJokes = async () => {
         availableVotes: ["😂", "👍", "❤️"]
       },
       {
-        question: "Why don't Java developers wear glasses?",
-        answer: "Because they can C#!",
-        votes: [{ value: 35, label: "😂" }, { value: 24, label: "👍" }, { value: 39, label: "❤️" }],
-        availableVotes: ["😂", "👍", "❤️"]
-      },
-      {
         question: "What did the developer say to his broken code?",
         answer: "You need to get yourself together!",
         votes: [{ value: 14, label: "😂" }, { value: 29, label: "👍" }, { value: 45, label: "❤️" }],
@@ -135,12 +123,6 @@ const seedJokes = async () => {
         question: "Why did the developer quit his job?",
         answer: "He didn’t get arrays!",
         votes: [{ value: 29, label: "😂" }, { value: 35, label: "👍" }, { value: 22, label: "❤️" }],
-        availableVotes: ["😂", "👍", "❤️"]
-      },
-      {
-        question: "Why do Java programmers wear glasses?",
-        answer: "Because they don't C#!",
-        votes: [{ value: 41, label: "😂" }, { value: 19, label: "👍" }, { value: 28, label: "❤️" }],
         availableVotes: ["😂", "👍", "❤️"]
       },
       {

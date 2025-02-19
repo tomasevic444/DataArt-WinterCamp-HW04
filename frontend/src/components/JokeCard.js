@@ -25,7 +25,7 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
     setEditedAnswer(joke.answer);
   }, [joke]);
 
-  // Handle Joke Update
+   // Function to update the joke on the server
   const updateJoke = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/joke/${joke._id}`, {
@@ -44,7 +44,7 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
       showToast("error", "Failed to update joke!");
     }
   };
-
+// Function to delete the joke from the server
   const deleteJoke = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/joke/${joke._id}`, { method: "DELETE" });
@@ -106,13 +106,15 @@ const JokeCard = ({ joke, fetchJoke, cardHeight, bgColor, cardWidth, adminMode, 
         )}
       </div>
 
-      <ReactionBar
-        jokeId={currentJoke._id}
-        votes={currentJoke.votes}
-        updateJoke={setCurrentJoke}
-        selectedEmoji={selectedEmoji}
-        setSelectedEmoji={setSelectedEmoji}
-      />
+      <div className="reaction-container">
+  <ReactionBar
+    jokeId={currentJoke._id}
+    votes={currentJoke.votes}
+    updateJoke={setCurrentJoke}
+    selectedEmoji={selectedEmoji}
+    setSelectedEmoji={setSelectedEmoji}
+  />
+</div>
 
       <div className="footer">
         {adminMode && (

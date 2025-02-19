@@ -17,13 +17,13 @@ const Home = () => {
   const toggleAdminMode = () => {
     setAdminMode((prev) => !prev);
   };
-
+  // Function to generate random styles for the joke card
   const generateRandomStyles = () => ({
     bgColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`,
-    cardHeight: Math.floor(Math.random() * 150) + 500,
+    cardHeight: Math.floor(Math.random() * 150) + 530,
     cardWidth: Math.floor(Math.random() * 150) + 400,
   });
-
+  // Function to fetch a new joke from the server
   const fetchJoke = async () => {
     const data = await getJoke();
     if (data) {
@@ -34,18 +34,18 @@ const Home = () => {
       setCardWidth(cardWidth);
     }
   };
-
+ // Effect to fetch a joke when the component mounts
   useEffect(() => {
     fetchJoke();
   }, []);
-
+  // Effect to update the background color when bgColor changes
   useEffect(() => {
     document.body.style.backgroundColor = bgColor;
     return () => {
       document.body.style.backgroundColor = "";
     };
   }, [bgColor]);
-
+  // Function to show toast notifications
   const showToast = (type, message) => {
     setToast({ show: true, type, message });
   };
